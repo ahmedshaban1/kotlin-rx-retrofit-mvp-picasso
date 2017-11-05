@@ -3,6 +3,7 @@ package sjob.mivors.com.ahmedmvpdemp.main
 import android.view.View
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import sjob.mivors.com.ahmedmvpdemp.Helper
 import sjob.mivors.com.ahmedmvpdemp.base.Presenter
 import sjob.mivors.com.ahmedmvpdemp.model.Data
 import sjob.mivors.com.ahmedmvpdemp.model.Item
@@ -30,7 +31,7 @@ class MainPresenter : Presenter<MainView>{
     fun loadData() {
         mView?.showLoader()
         val apiService = ApiInterface.create()
-        apiService.topMove("96c8db6c81c7dcaaad8d73948946723b").subscribeOn(Schedulers.io())
+        apiService.topMove(Helper.api_key).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         { result ->

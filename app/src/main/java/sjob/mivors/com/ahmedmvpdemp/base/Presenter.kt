@@ -6,4 +6,5 @@ package sjob.mivors.com.ahmedmvpdemp.base
 interface  Presenter<in T:View>{
     fun onAttach(view: T)
     fun onDetach()
+
 }

@@ -17,7 +17,7 @@ import sjob.mivors.com.ahmedmvpdemp.callbacks.MovieItemClickListener
 import sjob.mivors.com.ahmedmvpdemp.model.Item
 import sjob.mivors.com.ahmedmvpdemp.model.Movie
 import android.support.v4.view.ViewCompat
-
+import sjob.mivors.com.ahmedmvpdemp.Helper
 
 
 class MainActivity : AppCompatActivity(),MainView,MovieItemClickListener {
@@ -73,8 +73,8 @@ class MainActivity : AppCompatActivity(),MainView,MovieItemClickListener {
 
         val intent = Intent(this, next::class.java)
         var bundle:Bundle = Bundle()
-        bundle.putParcelable("item",item)
-        bundle.putString("shareImageView", ViewCompat.getTransitionName(shareImageView))
+        bundle.putParcelable(Helper.item,item)
+        bundle.putString(Helper.shareImageView, ViewCompat.getTransitionName(shareImageView))
         intent.putExtras(bundle)
         val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
                 this,

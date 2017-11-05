@@ -16,42 +16,62 @@ import android.widget.TextView
 import sjob.mivors.com.ahmedmvpdemp.R.id.imageView
 import android.support.v4.view.ViewCompat.setTransitionName
 import android.os.Build
+import android.view.MenuItem
+import com.baculsoft.sample.kotlinmvp.views.next.NextPresenter
+import com.baculsoft.sample.kotlinmvp.views.next.NextView
+import sjob.mivors.com.ahmedmvpdemp.Helper
 
 
+class next : AppCompatActivity(),NextView {
 
 
+    lateinit var presenter: NextPresenter
+    override fun onAttache() {
+        var item:Movie  =  intent.getParcelableExtra(Helper.item)
+        var imageTransitionName = intent.getStringExtra(Helper.shareImageView)
+        presenter  = NextPresenter(this,item,imageTransitionName)
+        presenter.onAttach(this)
 
+    }
 
+    override fun onDetach() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
-class next : AppCompatActivity() {
+    override fun showLoader() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun hideLoader() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun setLayoutImageTransitionName(imageTransitionName:String) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            toolbar_layout.transitionName = imageTransitionName
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_next)
         setSupportActionBar(toolbar)
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        supportActionBar!!.setDisplayShowHomeEnabled(true)
+        onAttache()
+        presenter.BindData();
 
-        var item:Movie =  intent.getParcelableExtra("item")
-        var imageTransitionName = intent.getStringExtra("shareImageView")
-       // Picasso.with(this).load().into(imageView1)
+    }
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            toolbar_layout.transitionName = imageTransitionName
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        if(item!!.itemId == android.R.id.home ){
+           onBackPressed()
         }
+        return super.onOptionsItemSelected(item)
+    }
 
-
-        Picasso.with(this).load("http://image.tmdb.org/t/p/w185//"+item.poster_path).into(object : com.squareup.picasso.Target {
-
-            override fun onBitmapLoaded(bitmap: Bitmap, from: Picasso.LoadedFrom) {
-                toolbar_layout.background = BitmapDrawable(resources, bitmap)
-            }
-
-            override fun onBitmapFailed(errorDrawable: Drawable) {
-                //Log.d("TAG", "FAILED");
-            }
-
-            override fun onPrepareLoad(placeHolderDrawable: Drawable) {
-                //Log.d("TAG", "Prepare Load");
-            }
-        })
+    override fun setLayoutImage(bitmap: Bitmap) {
+        toolbar_layout.background = BitmapDrawable(resources, bitmap)
     }
 }

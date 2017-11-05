@@ -21,8 +21,7 @@ import sjob.mivors.com.ahmedmvpdemp.callbacks.MovieItemClickListener
 import sjob.mivors.com.ahmedmvpdemp.main.MainActivity
 import android.R.attr.name
 import android.support.v4.view.ViewCompat
-
-
+import sjob.mivors.com.ahmedmvpdemp.Helper
 
 
 /**
@@ -49,7 +48,7 @@ class MyAdapter(private val items:ArrayList<Movie>, private val itemClick: Movie
 
 
         fun bindItem(item: Movie) {
-            Picasso.with(view.context).load("http://image.tmdb.org/t/p/w185//"+item.poster_path).into(view.imageView)
+            Picasso.with(view.context).load(Helper.image_url+item.poster_path).into(view.imageView)
             view.title.text = item.title
             view.textView3.text = item.overview
         }
